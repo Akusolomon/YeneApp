@@ -1,0 +1,16 @@
+[
+  {
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "training_managment",
+    "entities": [
+      "dist/**/*.entity{.ts,.js}",
+      "dist/**/data/models/*Entity{.ts,.js}"
+    ],
+    "synchronize": true,
+    "logging": true
+  }
+]
