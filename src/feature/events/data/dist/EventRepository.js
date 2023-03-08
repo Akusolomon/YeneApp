@@ -125,18 +125,18 @@ var EventRepository = /** @class */ (function () {
     };
     EventRepository.prototype.getEvents = function (query, deleted) {
         return __awaiter(this, void 0, void 0, function () {
-            var user, getEvent, Event, data, filteredData, i, found, err_1;
+            var user_1, getEvent, Event, data, filteredData, i, found, _loop_1, i, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 7, , 8]);
                         return [4 /*yield*/, UserEntity_1.UserEntity.findById(this.authUser.userId)];
                     case 1:
-                        user = _a.sent();
-                        getEvent = EventEntity_1.EventEntity.find({ city: user.city })
+                        user_1 = _a.sent();
+                        getEvent = EventEntity_1.EventEntity.find({ city: user_1.city })
                             .populate('comments')
                             .populate('likes')
-                            .populate('going');
+                            .populate('eventgoing');
                         // getEvent.forEach(el => console.log(el.user));
                         if (deleted)
                             getEvent = EventEntity_1.EventEntity.find({ active: false });
@@ -160,22 +160,31 @@ var EventRepository = /** @class */ (function () {
                         if (!found && data[i].privacy) {
                             console.log('privacy');
                             if (this.authUser.userId == data[i].user)
-                                filteredData.push(data[i]);
+                                filteredData.push(JSON.parse(JSON.stringify(data[i])));
                             return [3 /*break*/, 5];
                         }
                         else {
                             console.log('pub');
-                            filteredData.push(data[i]);
+                            filteredData.push(JSON.parse(JSON.stringify(data[i])));
                         }
                         _a.label = 5;
                     case 5:
                         i++;
                         return [3 /*break*/, 3];
                     case 6:
-                        // for(let i = 0; i < filteredData.length; i++){
-                        //   const Isfriend = await checkFriend(filteredData[i].user);
-                        //   if()
-                        // }
+                        _loop_1 = function (i) {
+                            var goingFriends = [];
+                            filteredData[i].eventgoing.forEach(function (el) {
+                                if (user_1.friends.includes(el.user._id)) {
+                                    goingFriends.push(el.user);
+                                }
+                            });
+                            filteredData[i]['goo'] = goingFriends;
+                        };
+                        // filteredData = JSON.parse(JSON.stringify(filteredData));
+                        for (i = 0; i < filteredData.length; i++) {
+                            _loop_1(i);
+                        }
                         console.log(filteredData);
                         return [2 /*return*/, filteredData];
                     case 7:

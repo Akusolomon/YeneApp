@@ -11,8 +11,8 @@ export class EventGoingRepository implements EventGoing {
   private authUser = AuthenticatedUser.getInstance();
   async attendEvent(data: AttendEventDto) {
     const event: any = await EventEntity.findById(data.event);
-    if (event.endDate < Date.now())
-      throw new ValidationException('Finished Event');
+   //TODO TO DELETE COMMENT // if (event.endDate < Date.now())
+    //   throw new ValidationException('Finished Event');
     data.user = this.authUser.userId;
     return await EventGoingEntity.create(data);
   }

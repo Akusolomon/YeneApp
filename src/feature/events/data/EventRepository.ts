@@ -10,6 +10,7 @@ import { AddEventDto } from './dtos/AddEventDto';
 import { UpdateEventDto } from './dtos/UpdateEventDto';
 import { APIFeatures } from 'src/util/API/Feature';
 import { SystemErrorException } from 'src/util/exception/SystemErrorException';
+import { stringify } from 'querystring';
 export class EventRepository implements Event {
   private authUser = AuthenticatedUser.getInstance();
   filterObj(obj, ...allowedfield) {
@@ -68,7 +69,7 @@ export class EventRepository implements Event {
       let getEvent: any = EventEntity.find({ city: user.city })
         .populate('comments')
         .populate('likes')
-        .populate('going');
+        .populate('eventgoing');
       // getEvent.forEach(el => console.log(el.user));
       if (deleted) getEvent = EventEntity.find({ active: false });
       const Event = new APIFeatures(getEvent, query)
@@ -85,17 +86,24 @@ export class EventRepository implements Event {
 
         if (!found && data[i].privacy) {
           console.log('privacy');
-          if (this.authUser.userId == data[i].user) filteredData.push(data[i]);
+          if (this.authUser.userId == data[i].user)
+            filteredData.push(JSON.parse(JSON.stringify(data[i])));
           continue;
         } else {
           console.log('pub');
-          filteredData.push(data[i]);
+          filteredData.push(JSON.parse(JSON.stringify(data[i])));
         }
       }
-      // for(let i = 0; i < filteredData.length; i++){
-      //   const Isfriend = await checkFriend(filteredData[i].user);
-      //   if()
-      // }
+      // filteredData = JSON.parse(JSON.stringify(filteredData));
+      for (let i = 0; i < filteredData.length; i++) {
+        const goingFriends = [];
+        filteredData[i].eventgoing.forEach(el => {
+          if (user.friends.includes(el.user._id)) {
+            goingFriends.push(el.user);
+          }
+        });
+        filteredData[i]['goo'] = goingFriends;
+      }
       console.log(filteredData);
       return filteredData;
     } catch (err) {

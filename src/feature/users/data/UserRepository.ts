@@ -163,6 +163,12 @@ export class UserRepository implements User {
     }
     return user;
   }
+  async getFriends() {
+    const user: any = await UserEntity.findById(this.authUser.userId).populate(
+      'friends',
+    );
+    return user.friends;
+  }
   async getUserById(id) {
     const user: any = await UserEntity.findById(id)
       .populate('event')

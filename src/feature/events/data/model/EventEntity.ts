@@ -95,7 +95,7 @@ eventSchema.virtual('likes', {
   localField: '_id',
 });
 
-eventSchema.virtual('going', {
+eventSchema.virtual('eventgoing', {
   ref: 'EventGoing',
   foreignField: 'event',
   localField: '_id',

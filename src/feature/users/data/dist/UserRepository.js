@@ -301,6 +301,19 @@ var UserRepository = /** @class */ (function () {
             });
         });
     };
+    UserRepository.prototype.getFriends = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, UserEntity_1.UserEntity.findById(this.authUser.userId).populate('friends')];
+                    case 1:
+                        user = _a.sent();
+                        return [2 /*return*/, user.friends];
+                }
+            });
+        });
+    };
     UserRepository.prototype.getUserById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var user, Isfriends;

@@ -24,11 +24,14 @@ const eventGoingSchema = new Schema({
   },
 });
 
+eventGoingSchema.pre<any>(/^find/, function(next) {
+  this.populate({
+    path: 'user',
+  });
+  next();
+});
+
 export const EventGoingEntity = model('EventGoing', eventGoingSchema);
-// eventGoingSchema.pre<any>("save",function(next){
-//     if(this.fee)
-//     this.ticketNo = this.createTicketNo()
-// })
 
 // eventGoingSchema.methods.createTicketNo = function () {
 //     const resetToken = randomBytes(32).toString('hex') + Date.now().toString()

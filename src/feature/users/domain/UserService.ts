@@ -10,13 +10,16 @@ import { User } from './User';
 
 @Injectable()
 export class UserService implements User {
+  getFriends() {
+    throw new Error('Method not implemented.');
+  }
   changePic(id: string, filename: any) {
     throw new Error('Method not implemented.');
   }
   unFriend(id: any) {
     throw new Error('Method not implemented.');
   }
-  changePasswordAd(id: any,reset) {
+  changePasswordAd(id: any, reset) {
     throw new Error('Method not implemented.');
   }
   getUserById(id: any) {
@@ -29,14 +32,14 @@ export class UserService implements User {
     throw new Error('Method not implemented.');
   }
   unBlock(id: string) {
-    return this.repository.unBlock(id)
+    return this.repository.unBlock(id);
   }
-  getUsers(query?: any,deleted?) {
-    return this.repository.getUsers(query)
+  getUsers(query?: any, deleted?) {
+    return this.repository.getUsers(query);
   }
   private repository: UserRepository;
   updateUser(userUpdate: any) {
-    return this.repository.updateUser(userUpdate)
+    return this.repository.updateUser(userUpdate);
   }
   getMe() {
     return this.repository.getMe();

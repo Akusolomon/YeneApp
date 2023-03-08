@@ -194,7 +194,12 @@ export class UserController implements User {
   changePasswordAd(@Body() reset: changeUserPassword, @Param('id') id) {
     return this.userService.changePasswordAd(id, reset);
   }
-
+  @Get('friends/me')
+  @UseGuards(JwtAuthGuard)
+  @Role([UserRoles.USER])
+  getFriends() {
+    return this.userService.getFriends();
+  }
   @Get('/image/:file')
   getPhoto(@Res() res, @Param('file') file) {
     const fileName = 'uploads/images/' + file;
