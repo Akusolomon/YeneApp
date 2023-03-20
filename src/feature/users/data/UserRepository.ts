@@ -81,6 +81,7 @@ export class UserRepository implements User {
       .populate('friendRequest')
       .populate('going')
       .populate('moment');
+    console.log(this.authUser, me);
     return me;
   }
   async deleteUser(id) {

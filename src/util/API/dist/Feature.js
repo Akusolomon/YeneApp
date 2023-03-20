@@ -12,6 +12,7 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.APIFeatures = void 0;
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 var APIFeatures = /** @class */ (function () {
     function APIFeatures(query, queryStr) {
         this.query = query;
@@ -55,7 +56,12 @@ var APIFeatures = /** @class */ (function () {
         }
         return this;
     };
-    APIFeatures.prototype.sort = function () {
+    APIFeatures.prototype.sort = function (data) {
+        // if (data) {
+        //   const shuffledArray = data.sort((a, b) => 0.5 - Math.random());
+        //   console.log(shuffledArray);
+        //   const sorted = this.query.sort({ type: shuffledArray[0] });
+        // }
         if (this.queryStr.sort) {
             var sortBy = this.queryStr.sort.split(',').join(' ');
             this.query = this.query.sort(sortBy);

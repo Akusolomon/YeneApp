@@ -141,6 +141,7 @@ var UserRepository = /** @class */ (function () {
                             .populate('moment')];
                     case 1:
                         me = _a.sent();
+                        console.log(this.authUser, me);
                         return [2 /*return*/, me];
                 }
             });

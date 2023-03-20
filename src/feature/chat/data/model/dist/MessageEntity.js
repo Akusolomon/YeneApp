@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.ChatEntity = void 0;
+exports.Message = void 0;
 var mongoose_1 = require("mongoose");
-var chatSchema = new mongoose_1.Schema({
+var messageSchema = new mongoose_1.Schema({
     from: { type: String, required: true },
     to: { type: String, required: true },
     message: { type: String, required: true },
@@ -14,14 +14,14 @@ var chatSchema = new mongoose_1.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
-exports.ChatEntity = mongoose_1.model('Chat', chatSchema);
-chatSchema.virtual('sender', {
+exports.Message = mongoose_1.model('Message', messageSchema);
+messageSchema.virtual('sender', {
     ref: 'User',
     localField: 'from',
     foreignField: '_id',
     justOne: true
 });
-chatSchema.virtual('reciever', {
+messageSchema.virtual('reciever', {
     ref: 'User',
     localField: 'to',
     foreignField: '_id',

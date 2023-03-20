@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { GlobalFilter } from './util/Filter/Filter';
+import { Sock } from './util/socket/socket';
 dotenv.config({ path: './config.env' });
 async function bootstrap() {
   const DB = process.env.DATABASE_LOCAL;
@@ -22,10 +23,11 @@ async function bootstrap() {
   //   message: 'To Many Requests From this Ip,Please Try Again In Hour!',
   // });
   // app.use(limiter);
+  Sock();
   app.use(helmet());
   app.useGlobalFilters(new GlobalFilter());
   app.enableCors();
-  const port = process.env.PORT || 5000;
+  const port = process.env.PORT;
   await app.listen(port);
 }
 bootstrap();

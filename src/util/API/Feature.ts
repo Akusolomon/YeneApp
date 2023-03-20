@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class APIFeatures {
   constructor(public query, public queryStr) {
     this.query = query;
@@ -44,13 +45,19 @@ export class APIFeatures {
     }
     return this;
   }
-  sort() {
+  sort(data?) {
+    // if (data) {
+    //   const shuffledArray = data.sort((a, b) => 0.5 - Math.random());
+    //   console.log(shuffledArray);
+    //   const sorted = this.query.sort({ type: shuffledArray[0] });
+    // }
     if (this.queryStr.sort) {
       const sortBy = this.queryStr.sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
     } else {
       this.query.sort('-createdAt');
     }
+
     return this;
   }
   limitFields() {

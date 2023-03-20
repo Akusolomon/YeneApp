@@ -85,6 +85,7 @@ var userSchema = new mongoose_1.Schema({
             unique: true
         },
     ],
+    interestedIn: [String],
     blockedUsers: [
         {
             type: mongoose_1.Schema.Types.ObjectId,
@@ -103,7 +104,7 @@ var userSchema = new mongoose_1.Schema({
     passwordResetToken: String,
     active: {
         type: Boolean,
-        "default": false
+        "default": true
     }
 }, {
     toJSON: { virtuals: true },
@@ -152,6 +153,11 @@ userSchema.virtual('friendRequest', {
     ref: 'FriendRequest',
     foreignField: 'receiver',
     localField: '_id'
+});
+userSchema.virtual('interested', {
+    ref: 'Category',
+    foreignField: 'name',
+    localField: 'interestedIn'
 });
 userSchema.virtual('going', {
     ref: 'EventGoing',

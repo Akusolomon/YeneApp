@@ -26,6 +26,7 @@ export class UserRegisterDto {
   @IsNotEmpty()
   @IsOptional()
   email: string;
+  interestedIn: string[];
 
   @IsNotEmpty()
   @IsOptional()

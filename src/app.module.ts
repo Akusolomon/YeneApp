@@ -1,3 +1,5 @@
+import { ChatModule } from './feature/chat/web/ChatModule';
+import { ConversationModule } from './feature/chat/conversation/web/ConversationModule';
 import { LikeModule } from './feature/likes/web/LikeModule';
 import { CommentModule } from './feature/comments/web/CommentModule';
 import { InviteModule } from './feature/invites/web/InviteModule';
@@ -13,6 +15,8 @@ import { FriendRequestModule } from './feature/friend_request/web/FriendRequestM
 
 @Module({
   imports: [
+    ChatModule,
+    ConversationModule,
     LikeModule,
     CommentModule,
     InviteModule,
@@ -24,7 +28,7 @@ import { FriendRequestModule } from './feature/friend_request/web/FriendRequestM
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
-  controllers: [ ],
+  controllers: [],
   providers: [JwtStrategy],
 })
 export class AppModule {}

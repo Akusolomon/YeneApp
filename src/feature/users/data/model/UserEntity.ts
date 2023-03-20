@@ -52,6 +52,7 @@ const userSchema = new Schema(
         unique: true,
       },
     ],
+    interestedIn: [String],
     blockedUsers: [
       {
         type: Schema.Types.ObjectId,
@@ -70,7 +71,7 @@ const userSchema = new Schema(
     passwordResetToken: String,
     active: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {
@@ -110,6 +111,11 @@ userSchema.virtual('friendRequest', {
   ref: 'FriendRequest',
   foreignField: 'receiver',
   localField: '_id',
+});
+userSchema.virtual('interested', {
+  ref: 'Category',
+  foreignField: 'name',
+  localField: 'interestedIn',
 });
 userSchema.virtual('going', {
   ref: 'EventGoing',

@@ -36,11 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+exports.Sock = void 0;
+var AuthenticatedUser_1 = require("src/feature/users/domain/AuthenticatedUser");
 var UserEntity_1 = require("src/feature/users/data/model/UserEntity");
 // const io = require('socket.io')(3001);
 var ioo = require("socket.io");
 var users = {};
-var io = new ioo(3001);
+var io = new ioo(3003);
 function setLastSeen(user) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -56,48 +58,89 @@ function setLastSeen(user) {
         });
     });
 }
+function getUser() {
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, UserEntity_1.UserEntity.findById(AuthenticatedUser_1.AuthenticatedUser.getInstance().userId)];
+                case 1:
+                    user = _a.sent();
+                    return [2 /*return*/, user];
+            }
+        });
+    });
+}
 //on connection
-io.on('connection', function (socket) {
-    socket.on('user/login', function (user) {
-        console.log("[EVENT] User " + user + " connected");
-        users[user] = socket;
-        io.emit('userLoggedIn', Object.keys(users));
-    });
-    //on Logout
-    socket.on('logout', function (user) {
-        console.log("[EVENT] User " + user + " left using logout!");
-        setLastSeen(user);
-        try {
-            delete users[user];
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function Sock() {
+    io.on('connection', function (socket) {
+        var _this = this;
+        socket.on('user/login', function (user) {
+            console.log("[EVENT] User " + user + " connected");
+            users[user] = socket;
             io.emit('userLoggedIn', Object.keys(users));
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-    //On Message
-    socket.on('message/send', function (message) {
-        try {
-            users[message.to].emit('message/sent', message);
-        }
-        catch (err) {
-            console.log('[ERR] Unable to relay message!');
-        }
-    });
-    //On Disconnect
-    socket.on('disconnecting', function (_) {
-        var userId;
-        for (userId in users) {
-            if (Object.hasOwnProperty.call(users, userId)) {
-                var userSocket = users[userId];
-                if (userSocket.id == this.id) {
-                    delete users[userId];
-                    break;
+        });
+        //on Logout
+        socket.on('logout', function (user) {
+            console.log("[EVENT] User " + user + " left using logout!");
+            setLastSeen(user);
+            try {
+                delete users[user];
+                io.emit('userLoggedIn', Object.keys(users));
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+        //On Message
+        socket.on('message/send', function (message) {
+            try {
+                users[message.to].emit('message/sent', message);
+            }
+            catch (err) {
+                console.log('[ERR] Unable to relay message!');
+            }
+        });
+        //Notf
+        // socket.on("notify", notify =>{
+        //   socket.on(notify, notification => {
+        //     //notification = {"userId":"EventId or Comment or "}
+        //   })
+        // })
+        //Going
+        socket.on('going', function (going) { return __awaiter(_this, void 0, void 0, function () {
+            var activeUser, i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, getUser()];
+                    case 1:
+                        activeUser = _a.sent();
+                        for (i = 0; activeUser.friends; i++) {
+                            if (Object.hasOwnProperty.call(users, activeUser.friends[i])) {
+                                users[activeUser.friends[i]].emit('going', 'Going NOTIFy');
+                            }
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        //On Disconnect
+        socket.on('disconnecting', function (_) {
+            var userId;
+            for (userId in users) {
+                if (Object.hasOwnProperty.call(users, userId)) {
+                    var userSocket = users[userId];
+                    if (userSocket.id == this.id) {
+                        delete users[userId];
+                        break;
+                    }
                 }
             }
-        }
-        io.emit('userLoggedIn', Object.keys(users));
-        console.log("[EVENT] User " + userId + " left");
-        setLastSeen(userId);
+            io.emit('userLoggedIn', Object.keys(users));
+            console.log("[EVENT] User " + userId + " left");
+            // setLastSeen(userId);
+        });
     });
-});
+}
+exports.Sock = Sock;

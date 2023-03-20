@@ -10,5 +10,8 @@ export class AddPlaceDto {
   @IsString()
   image: string;
 
-  moreImages: string;
+  moreImages: string[];
+  user: string;
+
+  description: string;
 }
