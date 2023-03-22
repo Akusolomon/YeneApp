@@ -8,6 +8,8 @@ import { FriendRequestRepository } from 'src/feature/friend_request/data/FriendR
 import { InviteRepository } from 'src/feature/invites/data/InviteRepository';
 import { CommentRepository } from 'src/feature/comments/data/CommentRepository';
 import { LikeRepository } from 'src/feature/likes/data/LikeRepository';
+import { ConversationRepository } from 'src/feature/chat/conversation/data/ConversationRepository';
+import { ChatRepository } from 'src/feature/chat/data/ChatRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -40,6 +42,15 @@ export class DatabaseFactory {
         break;
       case 'EVENTGOING':
         repository = new EventGoingRepository();
+        break;
+      case 'CONVERSATION':
+        repository = new ConversationRepository();
+        break;
+      case 'CHAT':
+        repository = new ChatRepository();
+        break;
+      case 'PLACE':
+        repository = new PlaceRepository();
         break;
       default:
         throw new DataNotFoundException('Repository not found');
