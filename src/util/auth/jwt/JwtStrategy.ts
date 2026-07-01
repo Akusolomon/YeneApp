@@ -11,6 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     validate(payload: any): any {
+        console.log("==============",payload)
         const user = AuthenticatedUser.getInstance()
         user.userId = payload.userId
         user.email = payload.email

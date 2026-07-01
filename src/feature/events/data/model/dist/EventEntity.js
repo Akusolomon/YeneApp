@@ -49,8 +49,12 @@ var eventSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    age: {
+        type: Number,
+        "default": 0
+    },
     images: [String],
-    // location:[Number]
+    location: [Number],
     description: {
         type: String,
         trim: true
@@ -86,6 +90,11 @@ eventSchema.virtual('comments', {
 eventSchema.virtual('likes', {
     ref: 'Like',
     foreignField: 'likedOn',
+    localField: '_id'
+});
+eventSchema.virtual('moments', {
+    ref: 'Moment',
+    foreignField: 'event',
     localField: '_id'
 });
 eventSchema.virtual('eventgoing', {

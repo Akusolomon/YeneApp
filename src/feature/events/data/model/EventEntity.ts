@@ -1,7 +1,4 @@
-import { AuthenticatedUser } from './../../../users/domain/AuthenticatedUser';
-import { checkFriend } from './../../../users/data/CheckFriend';
 import { Schema, model } from 'mongoose';
-import * as mnd from 'mongodb';
 const eventSchema = new Schema(
   {
     title: {
@@ -53,8 +50,12 @@ const eventSchema = new Schema(
       type: String,
       required: true,
     },
+    age:{
+      type: Number,
+      default:0
+    },
     images: [String],
-    // location:[Number]
+    location:[Number],
     description: {
       type: String,
       trim: true,
@@ -94,12 +95,17 @@ eventSchema.virtual('likes', {
   foreignField: 'likedOn',
   localField: '_id',
 });
-
+eventSchema.virtual('moments', {
+  ref: 'Moment',
+  foreignField: 'event',
+  localField: '_id',
+});
 eventSchema.virtual('eventgoing', {
   ref: 'EventGoing',
   foreignField: 'event',
   localField: '_id',
 });
+
 eventSchema.index({ title: 'text', venue: 'text' });
 
 export const EventEntity = model('Event', eventSchema);

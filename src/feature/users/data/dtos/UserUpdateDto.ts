@@ -28,6 +28,9 @@ export class UserUpdateDto {
   privacy: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  dateOfBirth: Date;
+  @IsOptional()
   @IsString()
   phone: string;
 

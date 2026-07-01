@@ -18,7 +18,7 @@ const userSchema = new Schema(
       required: [true, 'user must have phone'],
     },
 
-    companyName: { type: String, unique: true, trim: true },
+    companyName: { type: String, trim: true },
     isVarified: {
       type: Boolean,
       default: false,
@@ -44,12 +44,16 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'User Must have City'],
     },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+    },
     bio: String,
     friends: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        unique: true,
+    
       },
     ],
     interestedIn: [String],
@@ -57,7 +61,7 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        unique: true,
+        
       },
     ],
     role: {
@@ -79,7 +83,6 @@ const userSchema = new Schema(
     toObject: { virtuals: true },
   },
 );
-
 userSchema.pre<any>('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);

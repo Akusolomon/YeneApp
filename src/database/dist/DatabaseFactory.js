@@ -13,6 +13,7 @@ var CommentRepository_1 = require("src/feature/comments/data/CommentRepository")
 var LikeRepository_1 = require("src/feature/likes/data/LikeRepository");
 var ConversationRepository_1 = require("src/feature/chat/conversation/data/ConversationRepository");
 var ChatRepository_1 = require("src/feature/chat/data/ChatRepository");
+var PlaceRepository_1 = require("src/feature/places/data/PlaceRepository");
 var DatabaseFactory = /** @class */ (function () {
     function DatabaseFactory() {
     }
@@ -52,6 +53,9 @@ var DatabaseFactory = /** @class */ (function () {
                 break;
             case 'CHAT':
                 repository = new ChatRepository_1.ChatRepository();
+                break;
+            case 'PLACE':
+                repository = new PlaceRepository_1.PlaceRepository();
                 break;
             default:
                 throw new DataNotFoundException_1.DataNotFoundException('Repository not found');

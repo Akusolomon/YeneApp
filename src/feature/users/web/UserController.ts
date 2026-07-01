@@ -25,8 +25,9 @@ import {
   Query,
   Delete,
 } from '@nestjs/common';
+
 import { DatabaseFactory } from 'src/database/DatabaseFactory';
-import { JwtService } from '@nestjs/jwt';
+import {JwtService} from '@nestjs/jwt'
 import { UserService } from '../domain/UserService';
 import { JwtSign } from 'src/util/auth/jwt/JwtSign';
 import { Role } from 'src/util/decorators/Role';

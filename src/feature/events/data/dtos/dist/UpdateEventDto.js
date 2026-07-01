@@ -6,39 +6,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.UserUpdateDto = void 0;
+exports.UpdateEventDto = void 0;
 var class_validator_1 = require("class-validator");
-var UserUpdateDto = /** @class */ (function () {
-    function UserUpdateDto() {
+var UpdateEventDto = /** @class */ (function () {
+    function UpdateEventDto() {
     }
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "firstName");
+    ], UpdateEventDto.prototype, "title");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], UpdateEventDto.prototype, "privacy");
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "lastName");
+    ], UpdateEventDto.prototype, "type");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], UpdateEventDto.prototype, "startDate");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], UpdateEventDto.prototype, "endDate");
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "email");
+    ], UpdateEventDto.prototype, "city");
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "userName");
+    ], UpdateEventDto.prototype, "venue");
     __decorate([
         class_validator_1.IsOptional(),
-        class_validator_1.IsBoolean()
-    ], UserUpdateDto.prototype, "privacy");
+        class_validator_1.IsNumber()
+    ], UpdateEventDto.prototype, "age");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], UpdateEventDto.prototype, "fee");
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "phone");
+    ], UpdateEventDto.prototype, "profile");
     __decorate([
-        class_validator_1.IsOptional(),
-        class_validator_1.IsString()
-    ], UserUpdateDto.prototype, "city");
-    return UserUpdateDto;
+        class_validator_1.IsOptional()
+    ], UpdateEventDto.prototype, "location");
+    return UpdateEventDto;
 }());
-exports.UserUpdateDto = UserUpdateDto;
+exports.UpdateEventDto = UpdateEventDto;

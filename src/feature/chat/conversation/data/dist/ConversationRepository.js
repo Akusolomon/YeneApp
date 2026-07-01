@@ -85,10 +85,10 @@ var ConversationRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, ConversationEntity_1.ConversationEntity.find({
                             $or: [
                                 {
-                                    user_1: AuthenticatedUser_1.AuthenticatedUser.getInstance().userId
+                                    user1: AuthenticatedUser_1.AuthenticatedUser.getInstance().userId
                                 },
                                 {
-                                    user_2: AuthenticatedUser_1.AuthenticatedUser.getInstance().userId
+                                    user2: AuthenticatedUser_1.AuthenticatedUser.getInstance().userId
                                 },
                             ]
                         }).populate(['user1', 'user2'])];

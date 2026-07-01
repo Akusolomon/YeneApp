@@ -10,6 +10,7 @@ import { CommentRepository } from 'src/feature/comments/data/CommentRepository';
 import { LikeRepository } from 'src/feature/likes/data/LikeRepository';
 import { ConversationRepository } from 'src/feature/chat/conversation/data/ConversationRepository';
 import { ChatRepository } from 'src/feature/chat/data/ChatRepository';
+import { PlaceRepository } from 'src/feature/places/data/PlaceRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {

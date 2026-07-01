@@ -66,12 +66,25 @@ export class EventRepository implements Event {
   async getEvents(query?, deleted?) {
     try {
       const user: any = await UserEntity.findById(this.authUser.userId);
-      let getEvent: any = EventEntity.find({ city: user.city })
+      console.log("%%%%%%%",user)
+      // console.log(
+      //   new Date().getFullYear() - new Date(user.dateOfBirth).getFullYear(),
+      // );
+      let getEvent: any = EventEntity.find({
+        city: user.city,
+        age: {
+          $lte:
+            new Date().getFullYear() - new Date(user.dateOfBirth).getFullYear(),
+        },
+      })
         .populate('comments')
         .populate('likes')
         .populate('eventgoing');
       // getEvent.forEach(el => console.log(el.user));
-      if (deleted) getEvent = EventEntity.find({ active: false });
+      if (deleted)
+        getEvent = EventEntity.find({
+          active: false,
+        });
       const Event = new APIFeatures(getEvent, query)
         .filter()
         .search()
@@ -122,7 +135,9 @@ export class EventRepository implements Event {
   }
 
   async getEventById(id: string) {
-    const event = await EventEntity.findById(id).populate('likes');
+    const event = await EventEntity.findById(id)
+      .populate('likes')
+      .populate('moments');
     if (!event) throw new DataNotFoundException('Event Not Found');
     return event;
   }

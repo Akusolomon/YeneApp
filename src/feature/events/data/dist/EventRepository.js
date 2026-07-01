@@ -133,13 +133,21 @@ var EventRepository = /** @class */ (function () {
                         return [4 /*yield*/, UserEntity_1.UserEntity.findById(this.authUser.userId)];
                     case 1:
                         user_1 = _a.sent();
-                        getEvent = EventEntity_1.EventEntity.find({ city: user_1.city })
+                        console.log(new Date().getFullYear() - new Date(user_1.dateOfBirth).getFullYear());
+                        getEvent = EventEntity_1.EventEntity.find({
+                            city: user_1.city,
+                            age: {
+                                $lte: new Date().getFullYear() - new Date(user_1.dateOfBirth).getFullYear()
+                            }
+                        })
                             .populate('comments')
                             .populate('likes')
                             .populate('eventgoing');
                         // getEvent.forEach(el => console.log(el.user));
                         if (deleted)
-                            getEvent = EventEntity_1.EventEntity.find({ active: false });
+                            getEvent = EventEntity_1.EventEntity.find({
+                                active: false
+                            });
                         Event = new Feature_1.APIFeatures(getEvent, query)
                             .filter()
                             .search()
@@ -221,7 +229,9 @@ var EventRepository = /** @class */ (function () {
             var event;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, EventEntity_1.EventEntity.findById(id).populate('likes')];
+                    case 0: return [4 /*yield*/, EventEntity_1.EventEntity.findById(id)
+                            .populate('likes')
+                            .populate('moments')];
                     case 1:
                         event = _a.sent();
                         if (!event)

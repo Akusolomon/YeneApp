@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateEventDto {
   @IsOptional()
@@ -27,6 +27,10 @@ export class UpdateEventDto {
   venue: string;
 
   @IsOptional()
+  @IsNumber()
+  age: number;
+
+  @IsOptional()
   fee: number;
 
   @IsOptional()
@@ -34,5 +38,5 @@ export class UpdateEventDto {
   profile: string;
 
   @IsOptional()
-  location:number[]
+  location: number[];
 }

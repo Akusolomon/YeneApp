@@ -66,7 +66,7 @@ export class EventController implements Event {
     @Body() event: AddEventDto,
     @UploadedFiles() files: { profile?; images? },
   ) {
-    console.log(files.profile);
+    console.log(files);
     if (!files.profile[0]) {
       throw new ValidationException('Profile Is Required');
     }

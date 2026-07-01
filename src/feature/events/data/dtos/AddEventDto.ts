@@ -41,9 +41,11 @@ export class AddEventDto {
 
   profile: string;
 
+  age: number;
+
   // @IsNotEmpty()
   //TODO
-  location:number[]
+  location: number[];
 
   images: string[];
 }

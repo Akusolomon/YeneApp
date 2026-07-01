@@ -22,14 +22,14 @@ export class UserRegisterDto {
   phone: string;
 
   companyName: string;
+  @IsNotEmpty()
+  dateOfBirth: Date;
 
   @IsNotEmpty()
-  @IsOptional()
   email: string;
   interestedIn: string[];
 
   @IsNotEmpty()
-  @IsOptional()
   userName: string;
 
   @IsNotEmpty()

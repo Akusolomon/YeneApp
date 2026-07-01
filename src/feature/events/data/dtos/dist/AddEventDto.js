@@ -6,43 +6,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.UserRegisterDto = void 0;
+exports.AddEventDto = void 0;
 var class_validator_1 = require("class-validator");
-var UserRegisterDto = /** @class */ (function () {
-    function UserRegisterDto() {
+var AddEventDto = /** @class */ (function () {
+    function AddEventDto() {
     }
     __decorate([
         class_validator_1.IsNotEmpty(),
         class_validator_1.IsString()
-    ], UserRegisterDto.prototype, "firstName");
-    __decorate([
-        class_validator_1.IsNotEmpty(),
-        class_validator_1.IsString()
-    ], UserRegisterDto.prototype, "lastName");
+    ], AddEventDto.prototype, "title");
     __decorate([
         class_validator_1.IsNotEmpty()
-    ], UserRegisterDto.prototype, "phone");
-    __decorate([
-        class_validator_1.IsNotEmpty(),
-        class_validator_1.IsOptional()
-    ], UserRegisterDto.prototype, "email");
-    __decorate([
-        class_validator_1.IsNotEmpty(),
-        class_validator_1.IsOptional()
-    ], UserRegisterDto.prototype, "userName");
+    ], AddEventDto.prototype, "privacy");
     __decorate([
         class_validator_1.IsNotEmpty(),
         class_validator_1.IsString()
-    ], UserRegisterDto.prototype, "city");
+    ], AddEventDto.prototype, "type");
     __decorate([
-        class_validator_1.IsNotEmpty(),
-        class_validator_1.IsString(),
-        class_validator_1.MinLength(8)
-    ], UserRegisterDto.prototype, "password");
+        class_validator_1.IsNotEmpty()
+    ], AddEventDto.prototype, "startDate");
+    __decorate([
+        class_validator_1.IsNotEmpty()
+    ], AddEventDto.prototype, "endDate");
     __decorate([
         class_validator_1.IsNotEmpty(),
         class_validator_1.IsString()
-    ], UserRegisterDto.prototype, "role");
-    return UserRegisterDto;
+    ], AddEventDto.prototype, "city");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], AddEventDto.prototype, "fee");
+    __decorate([
+        class_validator_1.IsOptional()
+    ], AddEventDto.prototype, "description");
+    return AddEventDto;
 }());
-exports.UserRegisterDto = UserRegisterDto;
+exports.AddEventDto = AddEventDto;

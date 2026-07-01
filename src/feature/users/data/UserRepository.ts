@@ -18,6 +18,7 @@ import { SystemErrorException } from 'src/util/exception/SystemErrorException';
 import { Types } from 'mongoose';
 import { UserRoles } from 'src/util/API/UserRoles';
 
+
 export class UserRepository implements User {
   unBlock(id: string) {
     throw new Error('Method not implemented.');
@@ -39,12 +40,21 @@ export class UserRepository implements User {
       }
     }
     try {
-      const newUser = await UserEntity.create(user);
+      
+
+      const newUser= await UserEntity.create(user);
+      this.sendVerificationCode(newUser)
       return newUser;
     } catch (err) {
       console.log(err);
       throw new ValidationException('Some Thing Went Wrong Please try Again');
     }
+  }
+  async sendVerificationCode(user){
+    //TODO Send Code And Add Expiredate
+  }
+  async verifyUser(userId){ //get user by ID (default:active = false)
+    //TODO Verify User
   }
   async addProfile(add: AddProfile) {
     try {
@@ -81,7 +91,7 @@ export class UserRepository implements User {
       .populate('friendRequest')
       .populate('going')
       .populate('moment');
-    console.log(this.authUser, me);
+    
     return me;
   }
   async deleteUser(id) {
@@ -195,7 +205,6 @@ export class UserRepository implements User {
   async changePasswordAd(id, change: changeUserPassword) {
     const currentUser: any = await UserEntity.findById(id).select('+password');
     if (!currentUser) throw new DataNotFoundException('user Not Found');
-    console.log(change.newPassword);
     currentUser.password = change.newPassword;
     await currentUser.save();
   }
@@ -216,6 +225,9 @@ export class UserRepository implements User {
     }
     if (update.privacy) {
       user.privacy = update.privacy;
+    }
+    if (update.dateOfBirth) {
+      user.dateOfBirth = user.dateOfBirth;
     }
     if (update.phone) {
       user.phone = update.phone;

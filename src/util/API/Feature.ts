@@ -5,7 +5,7 @@ export class APIFeatures {
     this.queryStr = queryStr;
   }
   filter() {
-    console.log(this.queryStr);
+    
     if (this.queryStr.search) return this;
     const queryObj = { ...this.queryStr };
     const excludeFiles = ['page', 'sort', 'limit', 'fields'];
@@ -16,7 +16,7 @@ export class APIFeatures {
       /\b(gte|gt|lte|lt)\b/g,
       match => `$${match}`,
     );
-
+    console.log(updatequery)
     this.query = this.query.find(JSON.parse(updatequery));
 
     return this;

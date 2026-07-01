@@ -31,10 +31,10 @@ export class ConversationRepository {
     const convos = await ConversationEntity.find({
       $or: [
         {
-          user_1: AuthenticatedUser.getInstance().userId,
+          user1: AuthenticatedUser.getInstance().userId,
         },
         {
-          user_2: AuthenticatedUser.getInstance().userId,
+          user2: AuthenticatedUser.getInstance().userId,
         },
       ],
     }).populate(['user1', 'user2']);
