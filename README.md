@@ -81,10 +81,12 @@ npm run start:prod
 
 This repository focuses on the backend side of YENEAPP. Its modular structure makes it easier to extend the platform with notifications, payments, reporting, and other event-driven services in the future.
 
-##ENV FILE
+## ENV FILE
+```
 NODE_ENV=development
 PORT=3000
 DATABASE_LOCAL=ur db link
 JWT_SECRET = ur seecret key
 JWT_EXPIERS_IN= 7d
 JWT__COOKIE_EXPIERS_IN = 12
+```
